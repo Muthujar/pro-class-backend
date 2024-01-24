@@ -6,7 +6,15 @@ const students = new Schema(
     name: String,
     age: Number,
     marks: Object,
-    classroom: String,
+    class: String,
+    dob:String,
+    blood:String,
+    fatherName:String,
+    motherName:String,
+    healthIssue:String,
+    studentEmail:String,
+    password:String
+
   },
   {
     timestamps: {

@@ -7,5 +7,5 @@ const courses = new Schema({
   coursePeriod:Number
 });
 
-const Classroom = mongoose.model("courses", courses);
-module.exports = Classroom;
+const Courses = mongoose.model("courses", courses);
+module.exports = Courses;

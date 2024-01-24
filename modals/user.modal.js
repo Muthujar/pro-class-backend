@@ -9,6 +9,7 @@ username:{
     unique:true,
     minlength:3
 },
+type:String,
 password:{type:String,
 required:true,
 minlength:3}

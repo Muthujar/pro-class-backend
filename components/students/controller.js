@@ -1,5 +1,6 @@
 const Classroom = require("../../modals/classroom.modal");
 const Students = require("../../modals/students.modal");
+const { signUpUsers } = require("../users/controller");
 
 module.exports = {
   AddClassRoom: async (req, res, next) => {
@@ -57,18 +58,28 @@ module.exports = {
     let body = req.body;
     console.log(body);
 
-    if (!body || !body.name || !body.age || !body.marks) {
+    if (!body || !body.name || !body.dob || !body.class) {
+
+
+
       return res.send("poda dei");
     }
 
     try {
+
+      body["password"]='welcome123'
+      body["studentEmail"]=`${body.name}@proclass.com`
+      body["type"]='student'
+
       const results = await Students.create(body);
+      body["username"]=body.studentEmail
+      res.status(202).send({ message: "Students Created", data: results });
+       await signUpUsers(req,res,body.type)
 
-      console.log("ff");
 
-      res.send("Students created");
+
     } catch (error) {
-      console.log(error.message);
+      res.status(500).json({ error: "Internal Server Error" });
     }
   },
 
@@ -99,32 +110,44 @@ module.exports = {
     console.log(req);
     let body = req.body;
     console.log(body);
-    let query = req.query;
-    console.log(query,'query');
-
+    let query = req.query?.type
+    console.log(query, "query");
 
     try {
-      if (query) {
+      if (query === "") {
         const results = await Students.find();
 
         console.log(results);
 
         results.map((list) => {
-
-          console.log(list)
+          console.log(list);
           // Obj.values(list.marks).map((item,i) => {
           //   i / item.length;
           // });
 
-          const totalMarks = Object.values(list.marks).reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+          const totalMarks = Object.values(list.marks).reduce(
+            (accumulator, currentValue) => accumulator + currentValue,
+            0
+          );
           const averageMarks = totalMarks / Object.values(list.marks).length;
-       
-
         });
-        list.average=averageMarks
+        list.average = averageMarks;
 
         res.send(results);
+      } else if (query === "student") {
+        console.log('sti====');
+        const results = await Students.find({
 
+
+    // $lte:{age:18
+    //     }
+      },{
+          // student_id: "$_id",
+          name:1
+        });
+        console.log("ff");
+
+        res.send(results);
       } else {
         const results = await Students.find();
 

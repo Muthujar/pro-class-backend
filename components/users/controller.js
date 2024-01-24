@@ -6,7 +6,7 @@ const { v4: uuidv4 } = require("uuid");
 
 module.exports = {
 
-  getAllUsers: async (req, res, next) => {
+  getAllUsers: async (req, res) => {
     try {
       // const results = await Users.find({}, { __v: 0 });
       const results = await Users.find();
@@ -20,7 +20,7 @@ module.exports = {
     }
   },
 
-  signUpUsers: async (req, res, next) => {
+  signUpUsers: async (req, res,type) => {
     try {
       console.log(req);
 
@@ -42,12 +42,14 @@ module.exports = {
             const newUser = new Users({ ...req.body, password });
 
             newUser.save().then(() => {
-              res.status(200).send("registered successfully");
+
+
+              if(!type)res.status(200).send("registered successfully");
             });
             console.log(newUser);
           });
 
-          // res.status(200).send("registered successfully");
+          if(!type)res.status(200).send("registered successfully");
         });
       }
     } catch (error) {
@@ -77,7 +79,7 @@ module.exports = {
       jwt.sign({ user: user }, secretKey, (err, token) => {
         res
           .status(200)
-          .json({ token, message: "login successful" })
+          .json({ token,type:user.type, message: "login successful" })
           .send("login successfully");
       });
     } catch (error) {

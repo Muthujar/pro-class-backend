@@ -12,10 +12,10 @@ const userController=require('./controller')
 // router.post('/', userController.AddClassRoom);
 
 
-router.get('/student', userController.GetStudentList);
-router.get('/student/:id', userController.GetStudentData);
-router.post('/student', userController.AddStudent);
-router.patch('/student/:id', userController.EditStudent);
+router.get('/', userController.GetStudentList);
+router.get('/:id', userController.GetStudentData);
+router.post('/', userController.AddStudent);
+router.patch('/:id', userController.EditStudent);
 
 
 module.exports = router;

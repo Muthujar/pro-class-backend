@@ -9,6 +9,8 @@ const cors=require('cors')
 const userRoutes = require('./components/users/user')
 const classRoomRoutes = require('./components/classroom/classroom')
 const studentsRoutes =require('./components/students/students')
+const courseRoutes=require('./components/courses/courses')
+const attendenceRoutes=require('./components/attendence/attendence')
 
 
 // Enable CORS for all routes
@@ -20,6 +22,8 @@ require('./initDB')();
 app.use('/users',userRoutes)
 app.use('/classroom',classRoomRoutes)
 app.use('/students',studentsRoutes)
+app.use('/courses',courseRoutes)
+app.use('/attendence',attendenceRoutes)
 
 // app.use('/dash/products',productRoutes)
 

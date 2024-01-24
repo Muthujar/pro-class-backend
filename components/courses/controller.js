@@ -1,4 +1,4 @@
-const Course = require("../../modals/course.modal");
+const Course = require("../../modals/courses.modal");
 
 
 
@@ -27,16 +27,17 @@ AddCourse: async (req, res, next) => {
 
   GetCourseList: async (req, res, next) => {
     console.log(req);
-    let body = req.body;
+    let body = req.body; 
     console.log(body);
 
     try {
-      const results = await Course.find();
+      const results = await Course.find().select({ __v: 0 });
 
       console.log("ff", results);
 
-      res.send("courses List");
+      res.status(202).send({ message: "Courses List", data: results });
     } catch (error) {
+      res.status(500).json({ error: "Internal Server Error" });
       console.log(error.message);
     }
   },
@@ -50,7 +51,7 @@ AddCourse: async (req, res, next) => {
 
       console.log("ff");
 
-      res.send(results);
+      res.status(202,results);
     } catch (error) {
       console.log(error.message);
     }

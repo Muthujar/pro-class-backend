@@ -6,9 +6,9 @@ const userController=require('./controller')
 
 
 
-router.get('/courses', userController.GetCourseList);
-router.get('/courses/:id', userController.GetCourseDetails);
-router.post('/courses', userController.AddCourse);
+router.get('/', userController.GetCourseList);
+router.get('/:id', userController.GetCourseDetails);
+router.post('/', userController.AddCourse);
 
 // router.post('/', userController.AddClassRoom);
 
