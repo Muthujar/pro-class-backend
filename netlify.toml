@@ -1,1 +1,2 @@
-command = "npm start"
+[dev]
+   command = "npm start"
